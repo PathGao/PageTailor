@@ -32,8 +32,7 @@ export function assess(c: RoleCounts): string[] {
 
 export function countRoles(s: SerpSite): RoleCounts {
   const area = document.querySelector(s.area);
-  // Results in the list, and those moved up beside the AI overview (beside.ts).
-  const results = [...document.querySelectorAll(`:is(${s.list}, [data-pt-beside]) ${s.result}:has(${s.hasTitle})`)].filter((r) => !r.matches(s.feature));
+  const results = [...document.querySelectorAll(`${s.list} ${s.result}:has(${s.hasTitle})`)].filter((r) => !r.matches(s.feature));
   return {
     titledLinks: area ? [...area.querySelectorAll(s.hasTitle)].filter((t) => !t.closest(`${s.sidebar}, ${s.feature}`)).length : 0,
     results: results.length,

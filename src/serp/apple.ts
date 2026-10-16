@@ -2,8 +2,7 @@ import type { SerpSite } from "./site";
 
 /** Apple look for a search results page. --pt-accent is set per card from the site's favicon. */
 export function appleCss(s: SerpSite): string {
-  // Results live in the list, or in the box beside the AI overview (beside.ts).
-  const L = `:is(${s.list}, [data-pt-beside])`;
+  const L = s.list;
   return `
 /* Apple look for Google results. --pt-accent is set per card from the site's favicon. */
 ${s.page} {
@@ -199,7 +198,7 @@ function paintSiteColors(s: SerpSite): () => void {
     };
     img.complete ? run() : img.addEventListener("load", run, { once: true });
   };
-  const scan = () => document.querySelectorAll<HTMLElement>(`:is(${s.list}, [data-pt-beside]) ${s.result}`).forEach(paint);
+  const scan = () => document.querySelectorAll<HTMLElement>(`${s.list} ${s.result}`).forEach(paint);
   // Results stream in after document_start and again when "More results" loads.
   const obs = new MutationObserver(scan);
   obs.observe(document.documentElement, { childList: true, subtree: true });
@@ -217,7 +216,7 @@ function paintSiteColors(s: SerpSite): () => void {
 function clickableCards(s: SerpSite): () => void {
   const target = (e: MouseEvent) => {
     const el = e.target as Element | null;
-    const card = el?.closest?.(`:is(${s.list}, [data-pt-beside]) ${s.result}`);
+    const card = el?.closest?.(`${s.list} ${s.result}`);
     if (!card || el!.closest(`a, button, input, textarea, [role=button], [role=link], [aria-haspopup], [jsaction*=click]:not(${s.result})`)) return null;
     if (window.getSelection()?.toString()) return null;
     return card.querySelector<HTMLAnchorElement>(s.titleLink);

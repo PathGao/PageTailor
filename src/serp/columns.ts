@@ -34,16 +34,6 @@ export function columnsCss(s: SerpSite): string {
   ${s.list} [data-pt-wide] ${s.sitelinkRow} { display: block; min-width: 0; }
   /* Widgets wider than a column (flights, calculator, maps), and cards much taller than the rest; grid.ts measures them. */
   ${A} [data-pt-wide] { grid-column: 1 / -1; }
-  /* Results moved up beside the AI overview (beside.ts): a small grid with the result columns' width and gaps. */
-  ${A} > [data-pt-beside] {
-    display: grid;
-    grid-template-columns: repeat(var(--pt-side-cols, 1), minmax(0, 1fr));
-    gap: var(--pt-gap, 8px) var(--pt-beside-gap, 40px);
-    align-content: start;
-    align-items: stretch;
-    padding-left: var(--pt-beside-gap, 40px);
-    min-width: 0;
-  }
   /* Wrappers that only group results drop out of layout so their results are grid items too. */
   ${s.area} [data-pt-flat] { display: contents !important; }
   /* Media too wide for a narrow card goes under the text (grid.ts decides). */

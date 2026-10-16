@@ -1,4 +1,3 @@
-import { resultsBesideAi } from "./beside";
 import type { SerpSite } from "./site";
 
 // The site's result list holds results grouped in wrapper divs, nested to varying depth and sometimes side by side
@@ -13,7 +12,6 @@ import type { SerpSite } from "./site";
  */
 export function regularGrid(s: SerpSite): () => void {
   let queued = false;
-  const beside = resultsBesideAi(s);
   const layout = () => {
     queued = false;
     const list = document.querySelector<HTMLElement>(s.list);
@@ -31,7 +29,7 @@ export function regularGrid(s: SerpSite): () => void {
       if (!item.hasAttribute("data-pt-wide") && card.scrollWidth > card.clientWidth + 4) item.dataset.ptWide = "";
     }
     promoteTallCards(items, s);
-    fillLastRows(list, beside.layout(list, items, (e) => contentHeight(e, s)), s);
+    fillLastRows(list, items, s);
   };
   const queue = () => {
     if (!queued) {
@@ -46,7 +44,6 @@ export function regularGrid(s: SerpSite): () => void {
   return () => {
     obs.disconnect();
     removeEventListener("resize", queue);
-    beside.restore();
     document.querySelectorAll<HTMLElement>("[data-pt-fill]").forEach((e) => {
       e.style.removeProperty("grid-column");
       e.removeAttribute("data-pt-fill");
