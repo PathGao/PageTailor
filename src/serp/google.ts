@@ -59,9 +59,6 @@ export const google: SerpSite = {
   }
   /* With a knowledge panel, modules span above it too and end on its right edge (the 40px is the results-panel gap). */
   ${A}:has(> #rhs) [data-pt-top-cell] { padding-right: 0; }
-  /* The AI overview's text is capped at 764px and its 260px source column is pinned right, so a full-width card
-     opens an empty stretch between them. Size the card to its content, 764 + 260 (its padding comes on top). */
-  ${A} [data-pt-ai] > [data-pt-top-card] { max-width: 1024px; }
   /* Results beside the AI overview (beside.ts): the main column splits into the overview's width and the rest. The
      overview stays in place (moving it breaks "Show more"); only its columns change. */
   ${A}:has(> [data-pt-beside]) {
@@ -79,7 +76,6 @@ export const google: SerpSite = {
   ${A}:has(> [data-pt-beside]) [data-pt-ai] { padding-right: 0 !important; }
   /* Google's empty 16px bar above the overview would drop its card below the cards beside it. Hidden by CSS only. */
   ${A}:has(> [data-pt-beside]) > [data-pt-top]:has([data-pt-ai]) > :not(:has([data-pt-top-card])) { display: none !important; }
-  ${A}:has(> [data-pt-beside]) [data-pt-ai] > [data-pt-top-card] { max-width: none; }
   ${A} > [data-pt-beside] { grid-column: 3 / 4; padding-right: 40px; }`,
   topModuleCell: googleGridCell,
   aiOverview: "[data-lhcontainer]",
